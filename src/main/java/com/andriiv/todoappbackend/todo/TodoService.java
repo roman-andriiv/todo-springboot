@@ -18,22 +18,22 @@ public class TodoService {
     private static int todosCount = 0;
 
     static {
-        todos.add(new Todo(++todosCount, "andriiv","Get AWS Certified",
-                LocalDate.now().plusYears(10), false ));
-        todos.add(new Todo(++todosCount, "andriiv","Learn DevOps",
-                LocalDate.now().plusYears(11), false ));
-        todos.add(new Todo(++todosCount, "andriiv","Learn Full Stack Development",
-                LocalDate.now().plusYears(12), false ));
+        todos.add(new Todo(++todosCount, "andriiv", "Get AWS Certified",
+                LocalDate.now().plusYears(10), false));
+        todos.add(new Todo(++todosCount, "andriiv", "Learn DevOps",
+                LocalDate.now().plusYears(11), false));
+        todos.add(new Todo(++todosCount, "andriiv", "Learn Full Stack Development",
+                LocalDate.now().plusYears(12), false));
     }
 
-    public List<Todo> findByUsername(String username){
+    public List<Todo> findByUsername(String username) {
         Predicate<? super Todo> predicate =
                 todo -> todo.getUsername().equalsIgnoreCase(username);
         return todos.stream().filter(predicate).toList();
     }
 
     public Todo addTodo(String username, String description, LocalDate targetDate, boolean done) {
-        Todo todo = new Todo(++todosCount,username,description,targetDate,done);
+        Todo todo = new Todo(++todosCount, username, description, targetDate, done);
         todos.add(todo);
         return todo;
     }

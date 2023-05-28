@@ -1,4 +1,4 @@
-package com.andriiv.todoappbackend.todo;
+package com.andriiv.todoappbackend.todo.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,7 +21,7 @@ public class Todo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private String username;
     private String description;
     private LocalDate targetDate;

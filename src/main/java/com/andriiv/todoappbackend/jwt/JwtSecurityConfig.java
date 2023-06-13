@@ -48,13 +48,9 @@ public class JwtSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity, HandlerMappingIntrospector introspector) throws Exception {
 
-        // h2-console is a servlet
-        // https://github.com/spring-projects/spring-security/issues/12310
-        //noinspection removal
         return httpSecurity
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/authenticate").permitAll()
-//                        .requestMatchers(PathRequest.).permitAll() // h2-console is a servlet and NOT recommended for a production
+                        .requestMatchers("/", "/authenticate", "/actuator", "/actuator/*").permitAll()
                         .requestMatchers(HttpMethod.OPTIONS, "/**")
                         .permitAll()
                         .anyRequest()
@@ -63,13 +59,11 @@ public class JwtSecurityConfig {
                 .sessionManagement(session -> session.
                         sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .oauth2ResourceServer(
-                        //deprecated: OAuth2ResourceServerConfigurer::jwt
                         OAuth2ResourceServerConfigurer::jwt
                 )
                 .httpBasic(
                         Customizer.withDefaults())
                 .headers(header -> header
-                        // deprecated: frameOptions().sameOrigin()
                         .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin))
                 .build();
     }
